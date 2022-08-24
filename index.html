@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Aim Training | Проект 5</title>
+  </head>
+  <body>
+    <div class="screen">
+      <h1><span class="primary">Aim</span> Training</h1>
+      <div class="a start" data-game="start">start</div>
+    </div>
+
+    <div class="screen">
+      <h1><span class="primary">Choose</span> time and skill</h1>
+      <ul class="choose-list">
+        <li>
+          <button 
+            class="time-btn"
+            data-time="10">
+            10 sec
+          </button>
+        </li>
+        <li>
+          <button 
+            class="time-btn"
+            data-time="20">
+            20 sec
+          </button>
+        </li>
+        <li>
+          <button 
+            class="time-btn"
+            data-time="30">
+            30 sec
+          </button>
+        </li>
+        <li>
+          <button 
+            class="time-btn"
+            data-time="60">
+            60 sec
+          </button>
+        </li>
+      </ul>
+      <ul class="choose-list">
+        <li>
+          <button 
+            class="skill-btn"
+            data-skill="2">
+            noob
+          </button>
+        </li>
+        <li>
+          <button 
+            class="skill-btn"
+            data-skill="1">
+            middle
+          </button>
+        </li>
+        <li>
+          <button 
+            class="skill-btn"
+            data-skill="0.5">
+            pro
+          </button>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="screen">
+      <h3>Time left <span id="time" class="primary">00:00</span></h3>
+      <div class="board" id="board"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
