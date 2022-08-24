@@ -3,17 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="app/app.css" />
     <title>Aim Training | Проект 5</title>
   </head>
   <body>
+    
     <div class="screen">
       <h1><span class="primary">Aim</span> Training</h1>
       <div class="a start" data-game="start">start</div>
     </div>
-
+    
     <div class="screen">
-      <h1><span class="primary">Choose</span> time and skill</h1>
+      <h1>Choose <span class="primary">TIME</span> and <span class="primary">SKILL</span></h1>
       <ul class="choose-list">
         <li>
           <button 
@@ -69,11 +70,18 @@
 
       </ul>
     </div>
-
+    
     <div class="screen">
-      <h3>Time left <span id="time" class="primary">00:00</span></h3>
-      <div class="board" id="board"></div>
+      <div class="button-wrapper">
+        <div class="music a">music</div>
+        <div class="sound a">sound</div>
+      </div>
+      
+      <h2>Time left: <span id="time" class="primary">00:00</span></h2>
+      <div class="board" id="board">
+      </div>
     </div>
-    <script src="app.js"></script>
+    
+    <script src="app/app.js"></script>
   </body>
 </html>

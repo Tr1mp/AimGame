@@ -8,6 +8,7 @@ body {
   color: #fff;
   font-family: 'Khula', sans-serif;
   height: 100vh;
+  min-height: 700px;
   overflow: hidden;
   margin: 0;
   text-align: center;
@@ -26,7 +27,7 @@ body {
 }
 
 .a:hover {
-  color: #16D9E3;
+  color: #e31683;
   cursor: pointer;
 }
 
@@ -45,7 +46,9 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  /* min-height: 700px; */
   width: 100vw;
+  /* min-width: 700px; */
   transition: margin 0.5s ease-out;
   background: linear-gradient(90deg, #29323C 0%, #485563 100%);
 }
@@ -66,7 +69,7 @@ h1 {
   margin: 10px;
 }
 
-.time-btn, .skill-btn {
+.time-btn, .skill-btn, .music, .sound  {
   background-color: transparent;
   border: 2px solid #C0C0C0;
   color: #fff;
@@ -76,14 +79,14 @@ h1 {
   font-size: 1.5rem;
 }
 
-.time-btn:hover, .skill-btn:hover {
-  border: 2px solid #16D9E3;
-  color: #16D9E3;
+.time-btn:hover, .skill-btn:hover, .music:hover, .sound:hover  {
+  border: 2px solid #e31683;
+  color: #e31683;
 }
 
 .active {
-  border: 2px solid #16D9E3;
-  color: #16D9E3;
+  border: 2px solid #e31683;
+  color: #e31683;
 }
 
 .skill-btn {
@@ -95,7 +98,7 @@ h1 {
 }
 
 .primary {
-  color: #16D9E3;
+  color: #e31683;
 }
 
 .board {
@@ -104,8 +107,10 @@ h1 {
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 50vw;
+  max-width: 100vw;
+  height: 70vh;
+  max-height: 100vh;
   background: linear-gradient(118.38deg, #29323C -4.6%, #485563 200.44%);
   box-shadow: -8px -8px 20px #2A333D, 10px 7px 20px #475462;
   border-radius: 30px;
@@ -114,7 +119,38 @@ h1 {
 }
 
 .circle {
-  background: linear-gradient(90deg, #16D9E3 0%, #30C7EC 47%, #46AEF7 100%);
+  background: linear-gradient(90deg, #e31683 0%, #ec26aa 47%, #ec35a6 100%);
   position: absolute;
   border-radius: 50%;
 }
+
+.music, .sound {
+  position: relative;
+  display: inline;
+  margin: 10px 0px;
+  z-index: 1;
+  min-width: 100px;
+}
+
+.button-wrapper {
+  position: absolute;
+  top: 20px;
+  margin: 10px auto;
+  width: 210px;
+}
+
+.congr {
+  animation: lighting 400ms ease-in-out infinite;
+ 
+  letter-spacing: 2px;
+}
+
+@keyframes lighting {
+    from {
+      text-shadow: -1px -1px 0 #e31683, 1px -1px 0 #e31683, -1px 1px 0 #e31683, 1px 1px 0 #e31683;
+    }
+    to {
+      text-shadow: 0;
+    }
+  }
+  
