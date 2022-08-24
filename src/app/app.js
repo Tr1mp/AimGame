@@ -11,6 +11,7 @@ const btnStart = document.querySelector(".start"),
 
 const back = new Audio('../../public/audio/back.mp3');
 back.volume = 0.3;
+back.loop = true;
 
 let time = 0;
 let score = 0;
