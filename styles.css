@@ -81,6 +81,11 @@ h1 {
   color: #16D9E3;
 }
 
+.active {
+  border: 2px solid #16D9E3;
+  color: #16D9E3;
+}
+
 .skill-btn {
   text-transform: uppercase;
 }
@@ -106,12 +111,10 @@ h1 {
   border-radius: 30px;
   overflow: hidden;
   cursor: crosshair;
-  /* flex-wrap: wrap; */
 }
 
 .circle {
   background: linear-gradient(90deg, #16D9E3 0%, #30C7EC 47%, #46AEF7 100%);
   position: absolute;
   border-radius: 50%;
-  /* cursor: pointer; */
 }

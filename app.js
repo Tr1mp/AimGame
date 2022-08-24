@@ -2,7 +2,9 @@ const btnStart = document.querySelector(".start"),
       screens = document.querySelectorAll(".screen"),
       btnsChoose = document.querySelectorAll(".choose-list"),
       timeLeft = document.querySelector("#time"),
-      board = document.querySelector(".board");
+      board = document.querySelector(".board"),
+      btnsSec = document.querySelectorAll(".time-btn"),
+      btnsSkill = document.querySelectorAll(".skill-btn");
 let time = 0;
 let score = 0;
 let skill = 0;
@@ -29,10 +31,14 @@ btnsChoose.forEach(btn =>
     btn.addEventListener("click", (e) => {
         if (e && e.target.classList.contains("time-btn")) {
             time = +e.target.getAttribute("data-time");
+            btnsSec.forEach(sec => sec.classList.remove("active"));
+            e.target.classList.add("active");
         }
 
         if (e && e.target.classList.contains("skill-btn")) {
             skill = +e.target.getAttribute("data-skill");
+            btnsSkill.forEach(skill => skill.classList.remove("active"));
+            e.target.classList.add("active");
         }
 
         if (time && skill) {
