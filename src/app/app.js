@@ -9,7 +9,7 @@ const btnStart = document.querySelector(".start"),
       btnSound = document.querySelector(".sound"),
       btnsEffect = document.querySelector(".button-wrapper");
 
-const back = new Audio('../../public/audio/back.mp3');
+const back = new Audio('https://www.mboxdrive.com/back.mp3');
 back.volume = 0.3;
 back.loop = true;
 
@@ -116,7 +116,7 @@ board.addEventListener("click", (e) => {
         createNewCircle();
     }
     if (sound && !timeLeft.parentNode.classList.contains("hide")) {
-        const shoot = new Audio('../../public/audio/shoot.mp3');
+        const shoot = new Audio('https://www.mboxdrive.com/shoot.mp3');
         shoot.play();
     }
     totalShoots++;
@@ -192,7 +192,7 @@ function randomSize(min, max) {
 }
 
 function endGame() {
-    const congratulations = new Audio('../../public/audio/congratulations.mp3');
+    const congratulations = new Audio('https://www.mboxdrive.com/congratulations.mp3');
     clearInterval(circleInterval);
     timeLeft.parentNode.classList.add("hide");
     let bestScore = 0;
