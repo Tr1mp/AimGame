@@ -135,7 +135,3 @@ function endGame() {
         <div class="a start" data-game="start">change setting</div>
     `;
 }
-
-
-// localStorage.setItem('number', 5);
-
