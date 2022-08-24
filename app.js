@@ -27,9 +27,6 @@ document.addEventListener("click", (e) => {
 
 btnsChoose.forEach(btn => 
     btn.addEventListener("click", (e) => {
-        console.log(e.target);
-        // console.log(+e.target.getAttribute("data-time"));
-        
         if (e && e.target.classList.contains("time-btn")) {
             time = +e.target.getAttribute("data-time");
         }
@@ -39,7 +36,6 @@ btnsChoose.forEach(btn =>
         }
 
         if (time && skill) {
-            console.log(skill);
             screens[1].classList.add("up");
             startGame(time);
         }
