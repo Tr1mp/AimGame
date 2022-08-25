@@ -6,12 +6,15 @@ const btnStart = document.querySelector(".start"),
       btnsSec = document.querySelectorAll(".time-btn"),
       btnsSkill = document.querySelectorAll(".skill-btn"),
       btnMusic = document.querySelector(".music"),
-      btnSound = document.querySelector(".sound"),
-      btnsEffect = document.querySelector(".button-wrapper");
+      btnSound = document.querySelector(".effect"),
+      btnsSounds = document.querySelector(".button-wrapper");
 
-const soundGo = new Audio('../../public/sounds/startGo.mp3');
-const back = new Audio('../../public/sounds/back.mp3');
+const congratulations = new Audio('../../public/sounds/congratulations.mp3');
+const effectGo = new Audio('../../public/sounds/startGo.mp3');
 let hit = new Audio("../../public/sounds/hit.mp3");
+hit.volume = 0.3;
+let shoot = new Audio('../../public/sounds/shoot.mp3');
+const back = new Audio('../../public/sounds/back.mp3');
 back.volume = 0.3;
 back.loop = true;
 
@@ -20,35 +23,40 @@ let score = 0;
 let totalShoots = 0;
 let skill = 0;
 let music = null;
-let sound = null
+let effect = null
 
 localStorage.getItem("music") ? music = !!+localStorage.getItem("music") : music = true;
 if (music) {
     btnMusic.classList.add("active");
+    soundsChange([back], music);
+} else {
+    soundsChange([back], music);
 }
-localStorage.getItem("sound") ? sound = !!+localStorage.getItem("sound") : sound = true;
 
-if (sound) {
+localStorage.getItem("effect") ? effect = !!+localStorage.getItem("effect") : effect = true;
+if (effect) {
     btnSound.classList.add("active")
+    soundsChange([hit, shoot, effectGo, congratulations], effect);
+} else {
+    soundsChange([hit, shoot, effectGo, congratulations], effect);
 }
 
-btnsEffect.addEventListener("click", (e) => {
-    if (e.target && e.target.classList.contains("music") ) {
-        music = musicCondition(music, "music",  e)
+btnsSounds.addEventListener("click", (e) => {
+    if (e.target) {
+        if  (e.target.classList[0] === "music") {
+            music = soundsCondition(e, music, "music", [back])
 
-        if (music && screens[1].classList.contains("up")) {
-            back.play();
+            if (screens[0].classList.contains("up")) {
+                back.play();
+            }
         }
-        if (!music) {
-            back.pause();
+        if (e.target.classList[0] === "effect" ) {
+            effect = soundsCondition(e, effect, "effect", [hit, shoot, effectGo, congratulations])
         }
-    }
-    if (e.target &&  e.target.classList.contains("sound")) {
-        sound = musicCondition(sound, "sound",  e)
     }
 })
 
-function musicCondition(elem, type, e) {
+function soundsCondition(e, elem, type, arrSounds) {
     if (elem) {
         elem = false;
         localStorage.setItem(type, 0);
@@ -59,7 +67,12 @@ function musicCondition(elem, type, e) {
         e.target.classList.add("active");
     }
 
+    soundsChange(arrSounds, elem);
     return elem;
+}
+
+function soundsChange(arr, bool) {
+   arr.forEach(item => item.muted = !bool); 
 }
 
 
@@ -67,6 +80,7 @@ document.addEventListener("click", (e) => {
     if (e.target && e.target.getAttribute("data-game") == "start") {
         if (!screens[0].classList.contains("up")) {
             screens[0].classList.add("up");
+            back.play();
         } else {
             btnsSec.forEach(sec => sec.classList.remove("active"));
             btnsSkill.forEach(skill => skill.classList.remove("active"));
@@ -75,7 +89,6 @@ document.addEventListener("click", (e) => {
             totalShoots = 0;
             skill = 0;
             time = 0;
-            back.pause();
         }
         
     }
@@ -89,18 +102,16 @@ document.addEventListener("click", (e) => {
 
 btnsChoose.forEach(btn => 
     btn.addEventListener("click", (e) => {
-        if (e && e.target.classList.contains("time-btn")) {
-            time = +e.target.getAttribute("data-time");
-            btnsSec.forEach(sec => sec.classList.remove("active"));
-            e.target.classList.add("active");
+        if (e.target) {
+            if (e.target.classList.contains("time-btn")) {
+                time = +e.target.getAttribute("data-time");
+                changeActive(btnsSec, e.target);
+            }
+            if (e.target.classList.contains("skill-btn")) {
+                skill = +e.target.getAttribute("data-skill");
+                changeActive(btnsSkill, e.target);
+            }
         }
-
-        if (e && e.target.classList.contains("skill-btn")) {
-            skill = +e.target.getAttribute("data-skill");
-            btnsSkill.forEach(skill => skill.classList.remove("active"));
-            e.target.classList.add("active");
-        }
-
         if (time && skill) {
             screens[1].classList.add("up");
             startGame(time);
@@ -108,37 +119,37 @@ btnsChoose.forEach(btn =>
     }) 
 )
 
+function changeActive(btns, el) {
+    btns.forEach(skill => skill.classList.remove("active"));
+    el.classList.add("active");
+}
+
 board.addEventListener("click", (e) => {
-    if (sound && !timeLeft.parentNode.classList.contains("hide")) {
-        const shoot = new Audio('../../public/sounds/shoot.mp3');
-        shoot.play();
-    }
-    if (e && e.target.classList.contains("circle")) {
-        if (sound) {
-            hit = new Audio("../../public/sounds/hit.mp3");
-            hit.volume = 0.3;
-            setTimeout(() => {
-                hit.play();
-            }, 50);
-            
+    if (e.target) {
+        if (!timeLeft.parentNode.classList.contains("hide")) {
+            shoot.currentTime = 0;
+            shoot.play();
+            totalShoots++;
         }
-        score++;
-        e.target.remove();
-        createNewCircle();
+
+        if (e.target.classList.contains("circle")) {
+            if (effect) {
+                setTimeout(() => {
+                    hit.play();
+                }, 50);
+                
+            }
+            score++;
+            e.target.remove();
+            createNewCircle();
+        }
+        
     }
-    
-    totalShoots++;
 })
 
 function startGame(timer) {
-    if (sound) {
-        soundGo.play();
-    }
+    effectGo.play();
 
-    if (music) {
-        back.play();
-    }
-    
     if (timeLeft.parentNode.classList.contains("hide")) {
         timeLeft.parentNode.classList.remove("hide");
     }
@@ -154,8 +165,8 @@ function changeTime(timer) {
         --timer;
         renderTime(timer);
         if (!timer) {
-            endGame();
             clearInterval(idInterval);
+            endGame();
         }
     }, 1000);
 }
@@ -167,6 +178,7 @@ const renderTime = timer => {
     min < 10 ? min = `0${min}` : min;
     timeLeft.innerHTML = `${min}:${sec}`
 };
+
 let circleInterval = null;
 const createNewCircle = () => {
     
@@ -204,11 +216,15 @@ function randomSize(min, max) {
 }
 
 function endGame() {
-    const congratulations = new Audio('../../public/sounds/congratulations.mp3');
     clearInterval(circleInterval);
     timeLeft.parentNode.classList.add("hide");
     let bestScore = 0;
     let congrText = '';
+    let skillLevel = {
+        0.5: "pro",
+        1: "middle",
+        2: "noob",
+    }
     
     if (localStorage.getItem(`${time}${skill}`)) {
         bestScore = localStorage.getItem(`${time}${skill}`);
@@ -217,17 +233,35 @@ function endGame() {
     if (score > bestScore) {
         localStorage.setItem(`${time}${skill}`, score);
         congrText = '<h2 class="congr">Ooops, you have a new best score!</h2>';
-        if (sound) {
-            congratulations.play();
-        }
+        congratulations.play();
     }
 
     board.innerHTML = `
+        <h2>Time: <span class="primary">${time}</span> sec.  Skill level: <span class="primary">${skillLevel[skill]}</span></h2>
         <h3>Total shoots: <span class="primary">${totalShoots}</span></h3>
         <h1>SCORE: <span class="primary">${score}</span></h1>
         ${congrText}
         <h2>Your best score: <span class="primary">${bestScore}</span></h2>
-        <div class="a start" data-game="reload">play again</div>
-        <div class="a start" data-game="start">change setting</div>
+        <div class="a start button" data-game="reload">play again</div>
+        <div class="a start button" data-game="start">change setting</div>
     `;
+}
+
+
+function winGame(timeout = 1000, log = 0) {
+    const win = setInterval(() => clk(), timeout);
+    let count = 0;
+    function clk() {
+        const circle = document.querySelector(".circle");
+        if (circle) {
+            circle.click();
+            if (log) {
+                console.log("kill", count++);
+            }
+        }
+        if (timeLeft.parentNode.classList.contains("hide")) {
+            clearInterval(win);
+        }
+    }
+    
 }

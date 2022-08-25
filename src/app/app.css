@@ -31,13 +31,19 @@ body {
   cursor: pointer;
 }
 
-.start {
-  font-size: 2rem;
+h1 {
+  line-height: 1.2;
+  font-size: 4rem;
 }
 
-h1 {
-  line-height: 1.4;
-  font-size: 4rem;
+h2 {
+  line-height: 14px;
+  font-size: 1.8rem;
+}
+
+h3 {
+  line-height: 12px;
+  font-size: 1.2rem;
 }
 
 .screen {
@@ -69,7 +75,8 @@ h1 {
   margin: 10px;
 }
 
-.time-btn, .skill-btn, .music, .sound  {
+.button {
+  margin-top: 10px;
   background-color: transparent;
   border: 2px solid #C0C0C0;
   color: #fff;
@@ -79,9 +86,13 @@ h1 {
   font-size: 1.5rem;
 }
 
-.time-btn:hover, .skill-btn:hover, .music:hover, .sound:hover  {
+.button:hover  {
   border: 2px solid #e31683;
   color: #e31683;
+}
+
+.start {
+  font-size: 2rem;
 }
 
 .active {
@@ -124,7 +135,7 @@ h1 {
   border-radius: 50%;
 }
 
-.music, .sound {
+.music, .effect {
   position: relative;
   display: inline;
   margin: 10px 0px;
