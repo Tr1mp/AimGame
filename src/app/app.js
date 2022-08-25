@@ -9,7 +9,9 @@ const btnStart = document.querySelector(".start"),
       btnSound = document.querySelector(".sound"),
       btnsEffect = document.querySelector(".button-wrapper");
 
-const back = new Audio('https://www.mboxdrive.com/back.mp3');
+const soundGo = new Audio('../../public/sounds/startGo.mp3');
+const back = new Audio('../../public/sounds/back.mp3');
+let hit = new Audio("../../public/sounds/hit.mp3");
 back.volume = 0.3;
 back.loop = true;
 
@@ -29,9 +31,6 @@ localStorage.getItem("sound") ? sound = !!+localStorage.getItem("sound") : sound
 if (sound) {
     btnSound.classList.add("active")
 }
-
-
-
 
 btnsEffect.addEventListener("click", (e) => {
     if (e.target && e.target.classList.contains("music") ) {
@@ -110,19 +109,32 @@ btnsChoose.forEach(btn =>
 )
 
 board.addEventListener("click", (e) => {
+    if (sound && !timeLeft.parentNode.classList.contains("hide")) {
+        const shoot = new Audio('../../public/sounds/shoot.mp3');
+        shoot.play();
+    }
     if (e && e.target.classList.contains("circle")) {
+        if (sound) {
+            hit = new Audio("../../public/sounds/hit.mp3");
+            hit.volume = 0.3;
+            setTimeout(() => {
+                hit.play();
+            }, 50);
+            
+        }
         score++;
         e.target.remove();
         createNewCircle();
     }
-    if (sound && !timeLeft.parentNode.classList.contains("hide")) {
-        const shoot = new Audio('https://www.mboxdrive.com/shoot.mp3');
-        shoot.play();
-    }
+    
     totalShoots++;
 })
 
 function startGame(timer) {
+    if (sound) {
+        soundGo.play();
+    }
+
     if (music) {
         back.play();
     }
@@ -192,7 +204,7 @@ function randomSize(min, max) {
 }
 
 function endGame() {
-    const congratulations = new Audio('https://www.mboxdrive.com/congratulations.mp3');
+    const congratulations = new Audio('../../public/sounds/congratulations.mp3');
     clearInterval(circleInterval);
     timeLeft.parentNode.classList.add("hide");
     let bestScore = 0;
